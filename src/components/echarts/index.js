@@ -1,30 +1,31 @@
 import React from 'react';
 import ReactECharts from 'echarts-for-react';
+import jsonData from '../../../personal-data/data.json';
+
+const time = jsonData.map(i => i.time)
+const val = jsonData.map(i => i.val)
 
 const Echarts = () => {
   // ECharts 配置选项
   const option = {
-    title: {
-      text: 'ECharts 入门示例',
-    },
     tooltip: {
       trigger: 'axis',
     },
     legend: {
-      data: ['销量'],
+      data: ['体重'],
     },
     xAxis: {
       type: 'category',
-      data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+      data: time,
     },
     yAxis: {
       type: 'value',
     },
     series: [
       {
-        name: '销量',
+        name: '体重',
         type: 'line',
-        data: [120, 200, 150, 80, 70, 110, 130],
+        data: val,
       },
     ],
   };
