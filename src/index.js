@@ -1,9 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { createRoot } from 'react-dom/client';
+import MainApp from './app';
 
 const App = () => {
-  return <h1>Hello, Electron and React!</h1>;
+  return <MainApp />;
 };
 
 const container = document.getElementById('root');

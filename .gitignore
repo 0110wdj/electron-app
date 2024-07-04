@@ -93,3 +93,6 @@ out/
 
 # dist
 dist/
+
+# personal-data
+personal-data/
