@@ -1,7 +1,10 @@
-// See the Electron documentation for details on how to use preload scripts:
-// https://www.electronjs.org/docs/latest/tutorial/process-model#preload-scripts
-window.removeEventListener('DOMContentLoaded');
+const { contextBridge, ipcRenderer } = require('electron')
 
-window.addEventListener('DOMContentLoaded', () => {
-  console.log('Preload script loaded');
+console.log('preload.js loaded');
+
+contextBridge.exposeInMainWorld('__ipc', {
+  getDataJson: () => {
+    console.log('contextBridge.exposeInMainWorld call getDataJson');
+    return ipcRenderer.sendSync('getDataJson')
+  },
 });
