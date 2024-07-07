@@ -1,6 +1,6 @@
 /**
  * @type {{
-*   getDataJson: () => string,
+*   getDataJson: () => Promise<string>,
 *   addDataJson: (arg:string) => boolean,
 * }}
 */

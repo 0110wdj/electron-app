@@ -4,8 +4,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   entry: {
     main: './src/index.js',
-    // 其他入口文件
-    // preload: './src/elmain/preload.js',
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -39,5 +37,8 @@ module.exports = {
     },
     compress: true,
     port: 9000,
+    headers: {
+      'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-eval';",
+    },
   }
 };

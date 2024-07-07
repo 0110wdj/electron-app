@@ -44,6 +44,11 @@ const fileCheck = () => {
   }
 }
 
+const getDataPath = () => {
+  return personalDataPath
+}
+
 module.exports = {
-  fileCheck
+  fileCheck,
+  getDataPath
 }

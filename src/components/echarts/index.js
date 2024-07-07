@@ -7,13 +7,23 @@ const Echarts = () => {
   const [time, setTimeArray] = useState([])
   const [val, setValArray] = useState([])
 
-  console.log({ time, val })
-
   useEffect(() => {
-    ipc.getDataJson().then((data) => {
-      setTimeArray(data.map(i => i.time))
-      setValArray(data.map(i => i.val))
-    })
+    if (typeof ipc?.getDataJson !== 'function') {
+      console.error('ipc.getDataJson is not a function');
+    } else {
+      try {
+        ipc.getDataJson().then(res => {
+          const data = JSON.parse(res)
+          console.log({ data });
+          setTimeArray(data.map(i => i.time))
+          setValArray(data.map(i => i.val))
+          console.log('✅ data loaded', data);
+        })
+
+      } catch (error) {
+        console.error('❌ Error loading data:', error);
+      }
+    }
   }, [])
 
   // ECharts 配置选项
