@@ -2,10 +2,15 @@ const { fileCheck } = require('./filecrud.js')
 
 const mainIndex = () => {
   try {
-    fileCheck()
-    console.log('程序已完成准备');
+    const file_is_ready = fileCheck()
+    if (!file_is_ready) {
+      console.log('程序准备过程异常：', error);
+      throw error
+    }
+    console.log('程序准备过程正常');
   } catch (error) {
     console.error('程序准备过程异常：', error);
+    throw error
   }
 }
 

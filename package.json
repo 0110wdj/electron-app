@@ -5,7 +5,7 @@
   "description": "My Electron application description",
   "main": "src/main.js",
   "scripts": {
-    "start": "concurrently \"webpack serve --mode development\" \"wait-on http://localhost:9000 && electron .\"",
+    "start": "concurrently --kill-others \"webpack serve --mode development\" \"wait-on http://localhost:9000 && electron .\"",
     "build": "webpack --mode production",
     "package": "electron-forge package",
     "make": "electron-forge make",

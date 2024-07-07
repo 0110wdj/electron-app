@@ -32,10 +32,11 @@ const createWindow = () => {
 app.whenReady().then(() => {
   try {
     mainIndex()
+    createWindow();
   } catch (error) {
     console.error(error);
+    app.quit()
   }
-  createWindow();
 
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
@@ -44,6 +45,12 @@ app.whenReady().then(() => {
       createWindow();
     }
   });
+});
+
+app.on('quit', () => {
+  console.log('程序退出');
+  // 清理进程
+  app.quit()
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common
