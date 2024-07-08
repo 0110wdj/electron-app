@@ -19,7 +19,6 @@ const Echarts = () => {
           setValArray(data.map(i => i.val))
           console.log('✅ data loaded', data);
         })
-
       } catch (error) {
         console.error('❌ Error loading data:', error);
       }
@@ -44,7 +43,7 @@ const Echarts = () => {
       },
       series: [
         {
-          name: '体重',
+          name: '趋势',
           type: 'line',
           data: val,
         },
@@ -52,7 +51,30 @@ const Echarts = () => {
     }
   }, [time, val])
 
-  return <ReactECharts option={option} style={{ height: '400px', width: '100%' }} />;
+  return (
+    <div>
+      <ReactECharts option={option} style={{ height: '400px', width: '100%' }} />
+      <button type="button" onClick={() => {
+        if (typeof ipc?.addDataJson !== 'function') {
+          console.error('ipc.addDataJson is not a function');
+        } else {
+          try {
+            ipc.addDataJson(100).then(
+              res => {
+                console.log({ res });
+                console.log('✅ data added');
+              }
+            )
+          } catch (error) {
+            console.error('❌ Error adding data:', error);
+          }
+        }
+      }}
+      >
+        添加数据
+      </button>
+    </div>
+  );
 };
 
 export default Echarts;

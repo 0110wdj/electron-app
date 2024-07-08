@@ -28,22 +28,34 @@ const fsReadasync = async (url) => {
 }
 
 ipcMain.on("getDataJson", (e) => {
-  console.log("收到数据请求 getDataJson");
   try {
     const dirpath = getDataPath();
     const url = path.join(dirpath, 'data.json')
 
     fsReadasync(url).then((data) => {
-      console.log("读取文件成功", data);
       e.returnValue = data;
     })
-
   } catch (error) {
     console.error(error);
     e.returnValue = null;
   }
 });
 
-// ipcMain.on("add-data-json", "{val:100,time:'2023-06-02'}", (event, arg) => {
-//   console.log("Received data from renderer:", arg);
-// });
+ipcMain.on("addDataJson", (e, val) => {
+  try {
+    const dirpath = getDataPath();
+    const url = path.join(dirpath, 'data.json')
+
+    fsReadasync(url).then((data) => {
+      const fileJson = JSON.parse(data);
+      fileJson.push({ val, time: new Date().toLocaleString() });
+      fs.writeFileSync(url, JSON.stringify(fileJson, null, 2));
+      console.log("addDataJson success");
+      e.returnValue = true;
+    })
+
+  } catch (error) {
+    console.error(error);
+    e.returnValue = false;
+  }
+});
