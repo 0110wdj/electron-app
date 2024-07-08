@@ -5,28 +5,42 @@ const { getDataPath } = require('./filecrud.js');
 
 console.log("load ipc");
 
-ipcMain.on("getDataJson", (event) => {
+function readFileAsync(path, options) {
+  return new Promise((resolve, reject) => {
+    fs.readFile(path, options, (err, data) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(data);
+      }
+    });
+  });
+}
 
+const fsReadasync = async (url) => {
+  try {
+    const data = await readFileAsync(url, 'utf-8')
+    return data
+  } catch (error) {
+    console.error(`读取文件内容失败:\n${error.message}`);
+    return null
+  }
+}
+
+ipcMain.on("getDataJson", (e) => {
   console.log("收到数据请求 getDataJson");
-
   try {
     const dirpath = getDataPath();
-    const personalDataPath = path.join(dirpath, 'data.json')
-    console.log("personalDataPath", personalDataPath);
+    const url = path.join(dirpath, 'data.json')
 
-    fs.readFile(personalDataPath, "utf8", (err, data) => {
-      if (err) {
-        console.error(err);
-        event.returnValue = Promise.reject(err);
-        return;
-      }
-      console.log("data", data);
-      event.returnValue = Promise.resolve(data.toString());
-    });
+    fsReadasync(url).then((data) => {
+      console.log("读取文件成功", data);
+      e.returnValue = data;
+    })
 
   } catch (error) {
     console.error(error);
-    event.returnValue = Promise.reject(error);
+    e.returnValue = null;
   }
 });
 
