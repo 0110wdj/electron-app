@@ -35,13 +35,9 @@ const AddModal = ({ visible, setVisible, setReload }) => {
     }
   };
 
-  const onCancel = () => {
-    setVisible(false);
-  };
-
   return (
     <Modal
-      title="提示"
+      title="添加数据"
       open={visible}
       okText="确定"
       cancelText="取消"

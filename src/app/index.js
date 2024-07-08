@@ -14,11 +14,7 @@ document.body.addEventListener('keyup', e => {
 
 const MainApp = () => {
   return (
-    <ConfigProvider locale={zhCN} theme={{
-      token: {
-        colorPrimary: '#1677ff',
-      },
-    }}>
+    <ConfigProvider locale={zhCN} >
       <div className="main-app">
         <h2>趋势</h2>
         <Echarts />
