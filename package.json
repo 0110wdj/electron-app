@@ -6,7 +6,7 @@
   "main": "src/main.js",
   "scripts": {
     "start": "concurrently --kill-others \"webpack serve --mode development\" \"wait-on http://localhost:9000 && electron .\"",
-    "build": "webpack --mode production",
+    "build": "webpack --mode production && electron-forge make",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
