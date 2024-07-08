@@ -1,6 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import MainApp from './app';
+import MainApp from './app'; 
 
 const App = () => {
   return <MainApp />;

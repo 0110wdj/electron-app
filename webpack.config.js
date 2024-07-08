@@ -1,5 +1,6 @@
 const path = require('node:path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: {
@@ -7,14 +8,11 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: '/', // 确保正确的公共路径
   },
   module: {
     rules: [
-      {
-        test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
-      },
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
@@ -24,7 +22,26 @@ module.exports = {
             presets: ['@babel/preset-env', '@babel/preset-react']
           }
         }
-      }
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.less$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          {
+            loader: 'less-loader',
+            options: {
+              lessOptions: {
+                javascriptEnabled: true,
+              },
+            },
+          },
+        ],
+      },
     ]
   },
   resolve: {
@@ -32,8 +49,11 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'src/index.html',  // 指定模板文件
-    })
+      template: 'src/index.html',
+    }),
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+    }),
   ],
   devServer: {
     static: {
@@ -41,8 +61,7 @@ module.exports = {
     },
     compress: true,
     port: 9000,
-    headers: {
-      'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-eval';",
-    },
-  }
+    hot: true, // 开启热重载
+    historyApiFallback: true, // 确保正确处理前端路由
+  },
 };
