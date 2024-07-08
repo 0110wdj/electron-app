@@ -25,8 +25,9 @@ const createWindow = async () => {
   if (isDev) {
     // In development, load the local server URL
     mainWindow.loadURL('http://localhost:9000');
+    // 改为 F12 打开
     // Open the DevTools.
-    mainWindow.webContents.openDevTools();
+    // mainWindow.webContents.openDevTools();
   } else {
     // In production, load the index.html file from the build directory
     // mainWindow.loadFile(path.join(__dirname, 'dist', 'index.html'));

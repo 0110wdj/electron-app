@@ -7,4 +7,5 @@ contextBridge.exposeInMainWorld('__ipc', {
   addDataJson: async (val) => {
     return await ipcRenderer.sendSync('addDataJson', val)
   },
+  openDevTools: () => ipcRenderer.send('openDevTools'),
 });

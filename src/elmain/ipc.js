@@ -59,3 +59,7 @@ ipcMain.on("addDataJson", (e, val) => {
     e.returnValue = false;
   }
 });
+
+ipcMain.on('openDevTools', e => {
+  e.sender.openDevTools();
+});
