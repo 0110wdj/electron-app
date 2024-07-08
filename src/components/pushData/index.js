@@ -52,7 +52,7 @@ const AddModal = ({ visible, setVisible, setReload }) => {
       }}
     >
       <Form form={form}>
-        <Form.Item label="体重" name="weight">
+        <Form.Item label="weight" name="weight">
           <input type="number" />
         </Form.Item>
       </Form>

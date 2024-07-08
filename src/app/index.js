@@ -6,7 +6,6 @@ import './index.css';
 import ipc from '../components/ipc';
 
 // 增加调试功能
-document.body.removeEventListener('keyup');
 document.body.addEventListener('keyup', e => {
   if (e.key === 'F12') {
     ipc.openDevTools();

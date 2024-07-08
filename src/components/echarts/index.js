@@ -36,11 +36,13 @@ const Echarts = () => {
   }, [data, reload])
 
   return (
-    <div>
+    <div style={{ width: '100%' }}>
       <ReactECharts option={option} style={{ height: '400px', width: '100%' }} />
-      <Button onClick={() => setVisible(true)} type='primary'>
-        添加数据
-      </Button>
+      <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+        <Button onClick={() => setVisible(true)} type='primary'>
+          添加数据
+        </Button>
+      </div>
       <AddModal visible={visible} setVisible={setVisible} setReload={setReload} />
     </div>
   );
