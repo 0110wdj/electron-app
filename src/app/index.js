@@ -104,7 +104,9 @@ const MainApp = () => {
                   return;
                 }
                 setIsClick(true)
-                ipc.downloadData(start, end)
+                setTimeout(() => {
+                  ipc.downloadData(start, end)
+                }, 0);
                 setTimeout(() => {
                   setIsClick(false)
                 }, 10000)
