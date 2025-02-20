@@ -1,5 +1,5 @@
 const fs = require('node:fs');
-const path = require('node:path')
+const path = require('node:path');
 const { getDataPath } = require('../../elmain/filecrud.js');
 const archiver = require('archiver-promise');
 const { dialog } = require('electron');
@@ -12,26 +12,26 @@ const getZipStream = async () => {
 
   // 创建一个输出流到压缩文件
   const output = fs.createWriteStream(outputZip);
-  const archive = archiver(outputZip, {
+  const archive = archiver('zip', {
     zlib: { level: 9 } // 压缩级别，9 是最高级别
   });
 
   // 将输出流传递给 archiver
-  await archive.pipe(output);
+  archive.pipe(output);
 
   // 将文件添加到压缩包
-  filesToCompress.forEach(function (file) {
+  for (const file of filesToCompress) {
     const filePath = path.resolve(dirpath, file);
-    archive.file(filePath, { name: file });
-  });
+    archive.file(filePath, { name: path.basename(file) });
+    console.log(`正在压缩${path.basename(file)}`);
+  }
 
   // 完成压缩
   await archive.finalize();
 
-  await downloadFile(outputZip)
-  return Promise.resolve()
-}
-
+  await downloadFile(outputZip);
+  return Promise.resolve();
+};
 
 const downloadFile = async (filePath) => {
   // 弹出保存文件对话框
@@ -54,9 +54,8 @@ const downloadFile = async (filePath) => {
       console.error('Error during file download:', error);
     }
   }
-}
-
+};
 
 module.exports = {
   getZipStream
-}
+};
