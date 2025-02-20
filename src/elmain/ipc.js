@@ -3,8 +3,7 @@ const fs = require('node:fs');
 const path = require('node:path')
 const { getDataPath } = require('./filecrud.js');
 const { getUrlList } = require('../components/kits/getUrlList.js');
-// import getDetial from './kits/getDetial'
-// import clearEffect from './kits/clearEffect'
+const { run } = require('../components/kits/getDetial.js');
 // import getZipStream from './kits/getZipStream'
 
 console.log("load ipc");
@@ -76,14 +75,16 @@ ipcMain.on("downloadData", (e, start, end) => {
     getUrlList(+start, +end).then(data => {
       console.log('===> complete getUrlList');
       const array = data.toString().split('\n').filter(i => i)
-      e.returnValue = null;
-      // getDetial(array).then(() => {
-      //   console.log('===> complete getDetial');
-      //   getZipStream(response).then((res) => {
-      //     console.log('===> complete getDetial');
-      //     e.returnValue = res;
-      //   })
-      // })
+      console.log({ array });
+
+      run(array).then(() => {
+        e.returnValue = null;
+        console.log('===> complete getDetial');
+        // getZipStream(response).then((res) => {
+        //   console.log('===> complete getDetial');
+        //   e.returnValue = res;
+        // })
+      })
     })
   } catch (error) {
     console.error(error);
