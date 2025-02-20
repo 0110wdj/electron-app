@@ -63,3 +63,25 @@ ipcMain.on("addDataJson", (e, val) => {
 ipcMain.on('openDevTools', e => {
   e.sender.openDevTools();
 });
+
+ipcMain.on("downloadData", (e, start, end) => {
+  try {
+    const dirpath = getDataPath();
+    console.log({ dirpath, start, end });
+    e.returnValue = true;
+  } catch (error) {
+    console.error(error);
+    e.returnValue = false;
+  }
+});
+
+ipcMain.on("clearData", (e) => {
+  try {
+    const dirpath = getDataPath();
+    console.log({ dirpath });
+    e.returnValue = true;
+  } catch (error) {
+    console.error(error);
+    e.returnValue = false;
+  }
+});

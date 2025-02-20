@@ -3,7 +3,7 @@ const path = require('node:path')
 const OS = process.platform;
 let personalDataPath;
 
-const dir = "personal-weight-data";
+const dir = "kits-app-data";
 
 if (OS === 'win32') {
   personalDataPath = path.join(process.env.APPDATA, dir)
