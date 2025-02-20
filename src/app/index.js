@@ -14,8 +14,6 @@ document.body.addEventListener('keyup', e => {
   }
 });
 
-const ipAddress = '47.97.71.176'
-
 const MainApp = () => {
   const [start, setStart] = useState(1)
   const [end, setEnd] = useState(1)
@@ -83,11 +81,10 @@ const MainApp = () => {
             <Button
               onClick={() => {
                 if (isClick) {
-                  e.preventDefault()
+                  e?.preventDefault()
                 } else {
                   setIsClick(true)
                   ipc.clearData();
-                  // axios.get(`http://${ipAddress}:9527/crawler/sichuan/clear`)
                   setTimeout(() => {
                     setIsClick(false)
                   }, 3000)

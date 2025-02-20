@@ -2,6 +2,10 @@ const { ipcMain } = require('electron');
 const fs = require('node:fs');
 const path = require('node:path')
 const { getDataPath } = require('./filecrud.js');
+const { getUrlList } = require('../components/kits/getUrlList.js');
+// import getDetial from './kits/getDetial'
+// import clearEffect from './kits/clearEffect'
+// import getZipStream from './kits/getZipStream'
 
 console.log("load ipc");
 
@@ -68,17 +72,44 @@ ipcMain.on("downloadData", (e, start, end) => {
   try {
     const dirpath = getDataPath();
     console.log({ dirpath, start, end });
-    e.returnValue = true;
+
+    getUrlList(+start, +end).then(data => {
+      console.log('===> complete getUrlList');
+      const array = data.toString().split('\n').filter(i => i)
+      e.returnValue = null;
+      // getDetial(array).then(() => {
+      //   console.log('===> complete getDetial');
+      //   getZipStream(response).then((res) => {
+      //     console.log('===> complete getDetial');
+      //     e.returnValue = res;
+      //   })
+      // })
+    })
   } catch (error) {
     console.error(error);
-    e.returnValue = false;
+    e.returnValue = null;
   }
 });
 
 ipcMain.on("clearData", (e) => {
   try {
     const dirpath = getDataPath();
-    console.log({ dirpath });
+    const filesToCompress = ['./unit.txt', './time.txt', './title.txt', './context.txt', './urlList.txt', './compressed_files.zip']; // 要压缩的文件列表
+    const pathUrl = filesToCompress.map(UrlListFile => path.resolve(dirpath, UrlListFile))
+    filesToCompress.forEach(url => {
+      if (fs.existsSync(url)) {
+        fs.unlinkSync(url);
+      } else {
+        console.log("not found:" + url);
+      }
+    })
+    pathUrl.forEach(url => {
+      if (fs.existsSync(url)) {
+        fs.unlinkSync(url);
+      } else {
+        console.log("not found:" + url);
+      }
+    })
     e.returnValue = true;
   } catch (error) {
     console.error(error);

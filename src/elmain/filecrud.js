@@ -8,7 +8,7 @@ const dir = "kits-app-data";
 if (OS === 'win32') {
   personalDataPath = path.join(process.env.APPDATA, dir)
 } else if (OS === 'darwin') {
-  personalDataPath = path.join(process.env.HOME, 'Library', 'Application Support', dir)
+  personalDataPath = path.join(process.env.HOME, 'Library', dir)
 } else if (OS === 'linux') {
   personalDataPath = path.join(process.env.HOME, '.config', dir)
 } else {
