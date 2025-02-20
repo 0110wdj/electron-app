@@ -50,6 +50,8 @@
   },
   "license": "MIT",
   "dependencies": {
+    "archiver": "^6.0.1",
+    "archiver-promise": "^1.0.0",
     "request-promise": "^4.2.6",
     "antd": "^4.24.16",
     "echarts": "^5.5.1",

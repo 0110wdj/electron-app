@@ -87,28 +87,13 @@ const MainApp = () => {
                   ipc.clearData();
                   setTimeout(() => {
                     setIsClick(false)
-                  }, 3000)
+                  }, 500)
                 }
               }}
               style={{ margin: '0 10px' }}
             >
               {isClick ? '等待..' : '重置'}
             </Button>
-            {/* <a
-              href={`http://${ipAddress}:9527/crawler/sichuan/downLoad?start=${start}&end=${end}`}
-              onClick={e => {
-                if (isClick) {
-                  e.preventDefault()
-                } else {
-                  setIsClick(true)
-                  setTimeout(() => {
-                    setIsClick(false)
-                  }, 10000)
-                }
-              }}
-            >
-              <Button>{isClick ? '等待..' : '下载'}</Button>
-            </a> */}
             <Button onClick={e => {
               if (isClick) {
                 e.preventDefault()

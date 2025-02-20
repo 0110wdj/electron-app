@@ -4,9 +4,7 @@ const path = require('node:path')
 const { getDataPath } = require('./filecrud.js');
 const { getUrlList } = require('../components/kits/getUrlList.js');
 const { run } = require('../components/kits/getDetial.js');
-// import getZipStream from './kits/getZipStream'
-
-console.log("load ipc");
+const { getZipStream } = require('../components/kits/getZipStream.js');
 
 function readFileAsync(path, options) {
   return new Promise((resolve, reject) => {
@@ -71,19 +69,16 @@ ipcMain.on("downloadData", (e, start, end) => {
   try {
     const dirpath = getDataPath();
     console.log({ dirpath, start, end });
-
     getUrlList(+start, +end).then(data => {
       console.log('===> complete getUrlList');
       const array = data.toString().split('\n').filter(i => i)
       console.log({ array });
-
       run(array).then(() => {
-        e.returnValue = null;
         console.log('===> complete getDetial');
-        // getZipStream(response).then((res) => {
-        //   console.log('===> complete getDetial');
-        //   e.returnValue = res;
-        // })
+        getZipStream().then(() => {
+          console.log('===> complete zip');
+          e.returnValue = null;
+        })
       })
     })
   } catch (error) {
